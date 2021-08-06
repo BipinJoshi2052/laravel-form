@@ -14,12 +14,3 @@ This is a simple laravel coding task which includes
     Run composer install command.
     Run npm install or yarn command.
     Run php artisan key:generate command.
-
-#### Initial setup:
-
-    Clone the repo using git clone https://github.com/BipinJoshi2052/laravel-form.git command.
-    Open the directory containing the project.
-    Run cp .env.example .env command.
-    Run composer install command.
-    Run npm install command.
-    Run php artisan key:generate command.
