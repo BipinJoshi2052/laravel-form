@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Auth::routes();
+
+Route::get('/clients/list', [App\Http\Controllers\ClientsController::class, 'index'])->name('clients.index');
+Route::get('/', [App\Http\Controllers\ClientsController::class, 'post'])->name('clients.post');
+Route::post('/clients/store', [App\Http\Controllers\ClientsController::class, 'store'])->name('clients.store');
+Route::get('/clients/csv_export', [App\Http\Controllers\ClientsController::class, 'csv_export'])->name('clients.csv_export');
+

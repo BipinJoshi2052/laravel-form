@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\ClientsApiController;
+use \App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/clients-api/store', [ClientsApiController::class, 'store'])->name('clients-api.store');
+Route::get('/clients-api/list', [ClientsApiController::class, 'index'])->name('clients-api.list');
