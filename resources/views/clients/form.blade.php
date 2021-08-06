@@ -7,7 +7,7 @@
                 <div class = "card">
                     <div class = "card-header">
                         Add Client
-                        <div class = "float-right"><a href = "clients/list"><b>View Users</b></a></div>
+                        <div class = "float-right"><a href = "/"><b>View Users</b></a></div>
                     </div>
                     <div class = "card-body">
                         <form method = "post" action = "{{route('clients.store')}}" enctype = "multipart/form-data">

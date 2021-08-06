@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/clients/list', [App\Http\Controllers\ClientsController::class, 'index'])->name('clients.index');
-Route::get('/', [App\Http\Controllers\ClientsController::class, 'post'])->name('clients.post');
+Route::get('/', [App\Http\Controllers\ClientsController::class, 'index'])->name('clients.index');
+Route::get('/clients/post', [App\Http\Controllers\ClientsController::class, 'post'])->name('clients.post');
 Route::post('/clients/store', [App\Http\Controllers\ClientsController::class, 'store'])->name('clients.store');
+Route::get('/clients/show/{id}', [App\Http\Controllers\ClientsController::class, 'show'])->name('clients.show');
 Route::get('/clients/csv_export', [App\Http\Controllers\ClientsController::class, 'csv_export'])->name('clients.csv_export');
 

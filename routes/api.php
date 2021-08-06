@@ -22,3 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/clients-api/store', [ClientsApiController::class, 'store'])->name('clients-api.store');
 Route::get('/clients-api/list', [ClientsApiController::class, 'index'])->name('clients-api.list');
+Route::get('/clients-api/show', [ClientsApiController::class, 'show'])->name('clients-api.show');

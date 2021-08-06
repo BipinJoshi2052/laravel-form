@@ -50,7 +50,15 @@
                                 </tr>
                                 <tr>
                                     <th>Date of birth :</th>
-                                    <td>{{$editable['dob']}}</td>
+                                    <td>
+                                        {{date('d D Y' , strtotime($editable['dob']))}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Created On :</th>
+                                    <td>
+                                        {{date('d D Y' , strtotime($editable['created_at']))}}
+                                    </td>
                                 </tr>
                             </table>
                         </div>

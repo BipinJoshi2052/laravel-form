@@ -66,8 +66,14 @@ class ClientsController extends Controller
 
     public function show($id)
     {
-        $editable = Clients::find($id)->toArray();
-        return view('clients/show', compact(['editable']));
+        $data = [
+                'id' => $id
+        ];
+        $response = Curl::to('http://laravel-form.test/api/clients-api/show')
+                        ->withData($data)
+                        ->get();
+        $editable = json_decode($response,true);
+        return view('clients/show')->with('editable',$editable);
     }
 
     public function update(Request $request, $id)
