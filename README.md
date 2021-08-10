@@ -2,7 +2,7 @@
 
 This is a simple laravel coding task which includes
 - Form to add clients and saved into a csv file.
-- List of Employees retrieved from csv file with pagination of 3 items per page.
+- List of Employees retrieved from csv file using vue,js.
 - Detail page for each client entry.
 - Export the csv file with data.
 
