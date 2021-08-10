@@ -28,7 +28,6 @@ class ClientsController extends Controller
     }
 
     public function paginate($items, $perPage = 3, $page = null, $options = [])
-
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);

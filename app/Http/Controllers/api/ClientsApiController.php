@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ClientResource;
 use App\Models\Clients;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class ClientsApiController extends Controller {
@@ -27,12 +30,21 @@ class ClientsApiController extends Controller {
                     }
                 }
                 //pass the data to resource to get desired array of data
-                return ClientResource::collection($final_data);
+                $result = ClientResource::collection($final_data);
+//                return Clients::latest()->paginate(3);
+                return $this->paginate($result);
             }
         }
         else {
             return false;
         }
+    }
+
+    public function paginate($items, $perPage = 3, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
     public function store(Request $request) {

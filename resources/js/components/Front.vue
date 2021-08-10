@@ -20,7 +20,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for = "client in clients">
+            <tr v-for = "client in clients.data">
                <th scope = "row">{{client.id}}</th>
                <td>{{client.name}}</td>
                <td>{{client.email}}</td>
@@ -33,6 +33,9 @@
             </tbody>
          </table>
       </div>
+      <div class="card-footer">
+         <pagination :data="clients" @pagination-change-page="getResults"></pagination>
+      </div>
    </div>
 </template>
 
@@ -40,29 +43,40 @@
    export default {
       data: function () {
          return {
-            clients: [],
+            clients: {},
             loading: true,
             hidden: true
          }
       },
       mounted() {
-         this.loadClients();
+         this.getResults();
       },
       methods: {
-         loadClients: function () {
-            //load clients from api
-            //assign this.loadClients
-            //catch error
-            axios.get('api/clients-api/list')
+         getResults(page = 1){
+            axios.get('api/clients-api/list?page='+ page)
                   .then((response) => {
-                     this.clients = response.data.data;
+                     this.clients = response.data;
                      this.loading = false;
                      this.hidden = false;
                   })
                   .catch(function (error) {
                      console.log(error)
                   });
-         }
+         },
+         // loadClients: function () {
+            //load clients from api
+            //assign this.loadClients
+            //catch error
+            // axios.get('api/clients-api/list')
+            //       .then((response) => {
+            //          this.clients = response.data.data;
+            //          this.loading = false;
+            //          this.hidden = false;
+            //       })
+            //       .catch(function (error) {
+            //          console.log(error)
+            //       });
+         // }
       }
    }
 </script>
