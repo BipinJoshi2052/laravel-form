@@ -14,3 +14,10 @@ This is a simple laravel coding task which includes
     Run composer install command.
     Run npm install or yarn command.
     Run php artisan key:generate command.
+   
+#### Virtual Host name
+
+http://laravel-form.test/
+
+
+
