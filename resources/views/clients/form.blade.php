@@ -26,7 +26,7 @@
                                 </div>
                                 <div class = "form-group col-md-6">
                                     <label for = "exampleInputPhone">Phone</label>
-                                    <input name = "post[phone]" required type = "number" class = "form-control" id = "exampleInputPhone" placeholder = "Enter phone">
+                                    <input name = "post[phone]" required type = "number" class = "form-control phone" id = "exampleInputPhone" placeholder = "Enter phone">
                                 </div>
                                 <div class = "form-group col-md-6">
                                     <label for = "exampleInputAddress">Address</label>
@@ -67,4 +67,18 @@
             </div>
         </div>
     </div>
+    <script>
+       $(document).ready(function(){
+
+          $(".phone").on("blur", function(){
+             var mobNum = $(this).val();
+             console.log(mobNum);
+
+             var filter = /^\d*(?:\.\d{1,2})?$/;
+
+
+          });
+
+       });
+    </script>
 @endsection

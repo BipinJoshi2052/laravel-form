@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ClientResource;
 use App\Models\Clients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -10,15 +11,23 @@ use Illuminate\Support\Str;
 class ClientsApiController extends Controller {
     public function index() {
         $row = 1;
-        $a = [];
+        $formatted_data = [];
+        $final_data = [];
         if (file_exists(public_path() . '/clients.csv')) {
             if (($handle = fopen("clients.csv", "r")) !== false) {
                 while (($data = fgetcsv($handle, 1000, ",")) !== false) {
                     //                    $a[] = $data;
-                    $a[] = $this->getFormatted($data);
+                    $formatted_data[] = $this->getFormatted($data);
                 }
                 fclose($handle);
-                return json_encode($a);
+                //to remove the first item in the array that contains headers
+                foreach($formatted_data as $b => $c){
+                    if($b != 0) {
+                        array_push($final_data,$c);
+                    }
+                }
+                //pass the data to resource to get desired array of data
+                return ClientResource::collection($final_data);
             }
         }
         else {

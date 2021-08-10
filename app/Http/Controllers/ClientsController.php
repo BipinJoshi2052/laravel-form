@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ClientResource;
 use App\Models\Clients;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -9,8 +10,9 @@ use App\Exports\CsvExport;
 use Illuminate\Support\Facades\Http;
 use Ixudra\Curl\Facades\Curl;
 use Maatwebsite\Excel\Excel;
-//use MaatWebsite\Excel\Facades\Excel;
-//use Maatwebsite\Excel\Excel;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClientsController extends Controller
 {
@@ -19,8 +21,18 @@ class ClientsController extends Controller
         $response = Curl::to('http://laravel-form.test/api/clients-api/list')
                         ->get();
         if($response != false) {
-            return view('clients/index')->with('response',$response);
+            $data = json_decode($response,true);
+            $paginated = $this->paginate($data['data']);
+            return view('clients/index')->with('response',($paginated));
         }
+    }
+
+    public function paginate($items, $perPage = 3, $page = null, $options = [])
+
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
     public function csv_export()
