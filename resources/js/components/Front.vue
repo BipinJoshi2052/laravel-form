@@ -7,7 +7,7 @@
             <a class = "btn btn-sm btn-success" href = "/clients/post"><b>Add New Client</b></a>
          </div>
       </div>
-      <div :class = "{'hidden' : hidden}" class = "card-body">
+      <div :class = "{'hidden' : hidden}" class = "card-body overflow-x-auto">
          <table class = "table table-bordered mt-3">
             <thead>
             <tr>
@@ -63,20 +63,6 @@
                      console.log(error)
                   });
          },
-         // loadClients: function () {
-            //load clients from api
-            //assign this.loadClients
-            //catch error
-            // axios.get('api/clients-api/list')
-            //       .then((response) => {
-            //          this.clients = response.data.data;
-            //          this.loading = false;
-            //          this.hidden = false;
-            //       })
-            //       .catch(function (error) {
-            //          console.log(error)
-            //       });
-         // }
       }
    }
 </script>

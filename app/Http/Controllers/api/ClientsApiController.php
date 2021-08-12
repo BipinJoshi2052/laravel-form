@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ClientResource;
 use App\Models\Clients;
+use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -24,14 +25,14 @@ class ClientsApiController extends Controller {
                 }
                 fclose($handle);
                 //to remove the first item in the array that contains headers
-                foreach($formatted_data as $b => $c){
-                    if($b != 0) {
-                        array_push($final_data,$c);
+                foreach ($formatted_data as $b => $c) {
+                    if ($b != 0) {
+                        array_push($final_data, $c);
                     }
                 }
                 //pass the data to resource to get desired array of data
                 $result = ClientResource::collection($final_data);
-//                return Clients::latest()->paginate(3);
+                //                return Clients::latest()->paginate(3);
                 return $this->paginate($result);
             }
         }
@@ -40,36 +41,48 @@ class ClientsApiController extends Controller {
         }
     }
 
-    public function paginate($items, $perPage = 3, $page = null, $options = [])
-    {
+    public function paginate($items, $perPage = 3, $page = null, $options = []) {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
     public function store(Request $request) {
-        $data = $request->post;
-
+        $this->validate($request, [
+                "name"                   => ['required', "string", "max:255"],
+                "gender"                 => ['required', "string"],
+                "phone"                  => ['required', new PhoneNumber()],
+                "email"                  => ['required', "email"],
+                "address"                => ['required', "string", "max:255"],
+                "nationality"            => ['required', "string", "max:255"],
+                "dob"                    => [
+                        'required',
+                        "date",
+                        "before:today",
+                ],
+                "education" => ['required', "string", "max:255"],
+                "contact"        => ['required', "string"],
+        ]);
         $fp = fopen('clients.csv', 'a');
         $no_rows = count(file("clients.csv"));
-
         $form_data = [
                 'sn'          => $no_rows,
-                'name'        => $data['name'],
-                'email'       => $data['email'],
-                'phone'       => $data['phone'],
-                'address'     => $data['address'],
-                'nationality' => $data['nationality'],
-                'gender'      => $data['gender'],
-                'education'   => $data['education'],
-                'contact'     => $data['contact'],
-                'dob'         => $data['dob'],
+                'name'        => $request['name'],
+                'email'       => $request['email'],
+                'phone'       => $request['phone'],
+                'address'     => $request['address'],
+                'nationality' => $request['nationality'],
+                'gender'      => $request['gender'],
+                'education'   => $request['education'],
+                'contact'     => $request['contact'],
+                'dob'         => $request['dob'],
                 'created_at'  => date('Y-m-d'),
         ];
 
         fputcsv($fp, $form_data);
         fclose($fp);
-        return true;
+
+        return response()->json(null, 200);
     }
 
     public function show(Request $request) {

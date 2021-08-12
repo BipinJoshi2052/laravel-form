@@ -2,9 +2,9 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    border: 16px solid #f3f3f3;
+    border: 16px solid #F3F3F3;
     border-radius: 50%;
-    border-top: 16px solid #3498db;
+    border-top: 16px solid #3498DB;
     width: 120px;
     height: 120px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
@@ -13,14 +13,32 @@
 
 /* Safari */
 @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
-.hidden{
+
+.hidden {
     display: none;
+}
+
+.required::after {
+    content: " *";
+    color: red;
+}
+
+.overflow-x-auto {
+    overflow-x: auto;
 }

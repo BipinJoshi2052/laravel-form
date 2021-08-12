@@ -1,7 +1,7 @@
 ## IntroCept Task - Laravel Form
 
 This is a simple laravel coding task which includes
-- Form to add clients and saved into a csv file.
+- Vue generated form to add clients with validations and save into a csv file.
 - List of Employees imported from csv file using vue,js with pagination.
 - Detail page for each client entry.
 - Export the csv file with data.
@@ -18,6 +18,10 @@ This is a simple laravel coding task which includes
 #### Virtual Host name
 
 http://laravel-form.test/
+
+#### Live Host name
+
+https://introcept-task.joshibipin.com.np/
 
 
 

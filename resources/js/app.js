@@ -21,6 +21,7 @@ window.Vue = require('vue').default;
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('front-page-table', require('./components/Front.vue').default);
+Vue.component('employee-create-form', require('./components/Form.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

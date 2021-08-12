@@ -69,7 +69,6 @@ class ClientsController extends Controller
         $response = Curl::to('http://laravel-form.test/api/clients-api/store')
                         ->withData(($submit))
                         ->post();
-
         if($response == true) {
             return redirect()->route('clients.post')->with('msg','Client Added Successfully');
         }
